@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Demarc</title>
+    <style type="text/css">
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+</style>
+    <link th:href="@{\css\styles.css}" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+    <div class="dropdown">
+        <button class="dropbtn">Go To
+            <i class="fa fa-caret-down>"></i>
+        </button>
+        <div class="dropdown-content">
+            <a class="option" th:href="@{/}">Home</a>
+            <a class="option" th:href="@{demarc}">Rack Power Priority for Demarc</a>
+            <a class="option" th:href="@{/mdf}">Power distribution to MDF Racks</a>
+            <a class="option" th:href="@{/rack}">Rack Safety</a>
+            <a class="option" th:href="@{/temp}">Report Summary</a>
+        </div>
+    </div>
+</div>
+<h1 align="center" style="margin-top: 50px">Rack Power Priority for Demarc</h1>
+<h4 align="center">Ensure each rack ATS (rATS) shows both Source A and B as available</h4>
+<div align="center">
+    <form action="#" th:action="@{/powerdemarc}" th:object="${powerPrioDemarc}" method="post">
+        <p style="font-weight: bold">Action items:</p>
+        <br>
+        <table class="item">
+            <tr>
+                <td>
+                    <label >Source A (UPS) should be the primary/preferred Source:</label>
+                </td>
+                <td>
+                    <label><input type="radio" th:field="*{UPSPrimary}" value="Pass" required/>Pass</label>
+                </td>
+                <td>
+                    <label><input type="radio" th:field="*{UPSPrimary}" value="Fail" required/>Fail</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Rack PDU labeled with numbering matching the upstream ATS:</label>
+                </td>
+                <td>
+                    <label><input type="radio" th:field="*{numberingCorrect}" value="Pass" required/>Pass</label>
+                </td>
+                <td>
+                    <label><input type="radio" th:field="*{numberingCorrect}" value="Fail" required/>Fail</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Power cable retention is installed for all PDU to device cabling:</label>
+                </td>
+                <td>
+                    <label><input type="radio" th:field="*{rententionInstalled}" value="Pass" required/>Pass</label>
+                </td>
+                <td>
+                    <label><input type="radio" th:field="*{rententionInstalled}" value="Fail" required/>Fail</label>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <label>Side notes:</label>
+        <br>
+        <textarea rows="10" cols="50" th:field="*{siteNotes}"></textarea>
+        <br><br>
+        <button type="submit">Next Page</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <link th:href="@{\css\styles.css}" rel="stylesheet">
+  <script type="text/javascript" th:src="@{/js/tableformat.js}"></script>
+  <title>Result</title>
+</head>
+
+<body>
+<h1>Report results</h1>
+  <h2 th:text="${report.whID}"></h2>
+
+<table id="customers">
+  <tr>
+    <th>Rack Power Priority for Demarc</th>
+    <th>Pass</th>
+    <th>Fail</th>
+  </tr>
+  <tr>
+    <td>Source A (UPS) should be the primary/preferred Source</td>
+    <td class="pass" th:text="${report.getPowerPrioDemarc().getUPSPrimary() == 'Pass'} ? 'X' : '' "></td>
+    <td class="fail" th:text="${report.getPowerPrioDemarc().getUPSPrimary() == 'Fail'} ? 'X' : '' "></td>
+
+  </tr>
+  <tr>
+    <td>Rack PDU labeled with numbering matching the upstream ATS</td>
+    <td class="pass" th:text="${report.getPowerPrioDemarc().getNumberingCorrect() == 'Pass'} ? 'X' : '' "></td>
+    <td class="fail" th:text="${report.getPowerPrioDemarc().getNumberingCorrect() == 'Fail'} ? 'X' : '' "></td>
+  </tr>
+  <tr>
+    <td>Power cable retention is installed for all PDU to device cabling</td>
+    <td class="pass"th:text="${report.getPowerPrioDemarc().getRententionInstalled() == 'Pass'} ? 'X' : '' "></td>
+    <td class="fail" th:text="${report.getPowerPrioDemarc().getRententionInstalled() == 'Fail'}? 'X' : '' "></td>
+  </tr>
+  <tr>
+    <td>
+      <label th:text="'Notes: ' + ${report.getPowerPrioDemarc().getSiteNotes()}" ></label>
+    </td>
+  </tr>
+  <tr>
+    <th>Power distribution to MDF Racks</th>
+    <th>Pass</th>
+    <th>Fail</th>
+  </tr>
+  <tr>
+    <td>Source A connected to MDF UPS supplied outlet (PDU)</td>
+    <td class="pass" th:text="${report.getPowerDistributionToMDFRacks().isSourceAMDFF() == 'Pass'} ? 'X' : '' "></td>
+    <td class="fail" th:text="${report.getPowerDistributionToMDFRacks().isSourceAMDFF() == 'Fail'} ? 'X' : '' "></td>
+
+  </tr>
+  <tr>
+    <td>Source B connected to non-UPS supplied outlet (RPP)</td>
+    <td class="pass" th:text="${report.getPowerDistributionToMDFRacks().isSourceBNonMDFf() == 'Pass'} ? 'X' : '' "></td>
+    <td class="fail" th:text="${report.getPowerDistributionToMDFRacks().isSourceBNonMDFf() == 'Fail'} ? 'X' : '' "></td>
+  </tr>
+  <tr>
+    <td>Ensure UPS PDU cabinet and RPP cabinet have breakers labeled to which rack and ATS source the breaker supplies</td>
+    <td class="pass" th:text="${report.getPowerDistributionToMDFRacks().isUpsPduRPPbracketss() == 'Pass'} ? 'X' : '' "></td>
+    <td class="fail" th:text="${report.getPowerDistributionToMDFRacks().isUpsPduRPPbracketss() == 'Fail'} ? 'X' : '' "></td>
+  </tr>
+  <tr>
+    <td>
+      <label th:text="'Notes:   ' + ${report.getPowerDistributionToMDFRacks().getSiteNotes()}" ></label>
+    </td>
+  </tr>
+  <tr>
+    <th>Rack Safety</th>
+    <th>Pass</th>
+    <th>Fail</th>
+  </tr>
+
+  <tr>
+    <td>Ensure each rack has grounding connections attached back to MDF grounding bar / building ground.</td>
+    <td class="pass" th:text="${report.getRackSafety().isAreGroundingConnectionAttached() == 'Pass'} ? 'X' : '' ">
+    </td>
+    <td class="fail" th:text="${report.getRackSafety().isAreGroundingConnectionAttached() == 'Fail'}  ? 'X' : '' ">
+  </tr>
+  <tr>
+    <td>Ensure each rack is bolted to floor (if applicable, earthquake zones)</td>
+    <td class="pass" th:text="${report.getRackSafety().isRackBolted() == 'Pass'}  ? 'X' : '' ">
+    </td>
+    <td class="fail" th:text="${report.getRackSafety().isRackBolted() == 'Fail'}  ? 'X' : '' ">
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <label th:text="'Notes:   ' + ${report.getRackSafety().getSiteNotes()}" ></label>
+    </td>
+  </tr>
+</table>
+<br>
+<a onclick="this.href='data:text/html;charset=UTF-8,'+encodeURIComponent(document.documentElement.outerHTML)" href="#" download="report.html"><button>Download Report</button></a>
+<a th:href="@{/}"><button>Home</button></a>
+
+</body>
+</html>

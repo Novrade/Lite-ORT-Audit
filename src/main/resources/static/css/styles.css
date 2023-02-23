@@ -1,0 +1,98 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: white;
+  color: black;
+}
+
+input {
+    background-color: #fbeec1;
+}
+textarea {
+    background-color: #fbeec1;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #5A5A5A;
+  color: white;
+}
+
+.item td {
+   padding-left:10px;
+   padding-bottom:10px;
+}
+.pass:not(:empty) {
+    background-color: green;
+}
+.fail:not(:empty) {
+    background-color: red;
+}
+
+
+.dropbtn {
+  background-color: #008CBA;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  text-align: center;
+  width: 200px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #046382;}
+
+#homepages {
+  color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 80px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
+}
+
+button {
+    background-color:#0a0a23;
+    color: #fff;
+    border:none;
+    border-radius:5px;
+    padding:8px;
+    min-height:20px;
+    min-width: 100px;
+      }
+
+
+
+

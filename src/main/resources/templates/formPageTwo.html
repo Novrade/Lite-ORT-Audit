@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>MDF</title>
+  <style type="text/css">
+    span {
+        display: inline-block;
+        width: 200px;
+        text-align: left;
+    }
+</style>
+  <link th:href="@{\css\styles.css}" rel="stylesheet">
+</head>
+<body>
+<div class="navbar">
+  <div class="dropdown">
+    <button class="dropbtn">Go To
+      <i class="fa fa-caret-down>"></i>
+    </button>
+    <div class="dropdown-content">
+      <a class="option" th:href="@{/}">Home</a>
+      <a class="option" th:href="@{demarc}">Rack Power Priority for Demarc</a>
+      <a class="option" th:href="@{/mdf}">Power distribution to MDF Racks</a>
+      <a class="option" th:href="@{/rack}">Rack Safety</a>
+      <a class="option" th:href="@{/temp}">Report Summary</a>
+    </div>
+  </div>
+</div>
+<h1 align="center" style="margin-top: 50px">Power distribution to MDF Racks</h1>
+<h4 align="center">Ensure correct power connection to rack.</h4>
+<div align="center">
+  <form action="#" th:action="@{/powermdf}" th:object="${powertomdf}" method="post">
+    <p style="font-weight: bold">Action items:</p>
+    <br>
+    <table class="item">
+      <tr>
+        <td>
+          <label>Source A connected to MDF UPS supplied outlet (PDU):</label>
+         </td>
+        <td>
+          <label><input type="radio" th:field="*{sourceAMDF}" th:value="Pass" required/>Pass</label>
+        </td>
+        <td>
+          <label><input type="radio" th:field="*{sourceAMDF}" th:value="Fail" required/>Fail</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Source B connected to non-UPS supplied outlet (RPP):</label>
+        </td>
+        <td>
+          <label><input type="radio" th:field="*{sourceBNonMDF}" value="Pass" required/>Pass</label>
+        </td>
+        <td>
+          <label><input type="radio" th:field="*{sourceBNonMDF}" value="Fail" required/>Fail</label>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label>Ensure UPS PDU cabinet and RPP cabinet have breakers labeled to which rack and ATS source the breaker supplies:</label>
+        </td>
+        <td>
+           <label><input type="radio" th:field="*{upsPduRPPbrackets}" value="Pass" required/>Pass</label>
+        </td>
+        <td>
+           <label><input type="radio" th:field="*{upsPduRPPbrackets}" value="Fail" required/>Fail</label>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <label>Side notes:</label>
+    <br>
+    <textarea rows="10" cols="50" th:field="*{siteNotes}"></textarea>
+    <br><br>
+    <button type="submit">Next Page</button>
+  </form>
+</div>
+</body>
+</html>
