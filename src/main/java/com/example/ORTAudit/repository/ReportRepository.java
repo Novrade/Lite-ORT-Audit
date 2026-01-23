@@ -1,6 +1,6 @@
-package com.example.ORTAduit.repository;
+package com.example.ORTAudit.repository;
 
-import com.example.ORTAduit.entities.Report;
+import com.example.ORTAudit.entities.Report;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReportRepository extends JpaRepository<Report,Long> {

@@ -1,4 +1,4 @@
-package com.example.ORTAduit.entities;
+package com.example.ORTAudit.entities;
 
 import jakarta.persistence.*;
 
