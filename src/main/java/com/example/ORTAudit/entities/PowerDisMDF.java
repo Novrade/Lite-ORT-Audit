@@ -12,19 +12,23 @@ public class PowerDisMDF implements Serializable {
     //Source A connected to MDF UPS supplied outlet (PDU)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id",columnDefinition = "i")
+    @Column(name="id")
     private int id;
-    @Column(name="sourcemdf", columnDefinition = "i")
+
+    @Column(name="sourcemdf")
     private String sourceAMDF;
 
     //Source B connected to non-UPS supplied outlet (RPP)
-    @Column(name="sourcenonmdf", columnDefinition = "i")
+    @Column(name="sourcenonmdf")
     private String sourceBNonMDF;
+
     //Ensure UPS PDU cabinet and RPP cabinet have breakers labeled to which rack and ATS source the breaker supplies
-    @Column(name="brackets", columnDefinition = "i")
+    @Column(name="brackets")
     private String upsPduRPPbrackets;
-    @Column(name="sitenotes", columnDefinition = "i")
+
+    @Column(name="sitenotes")
     private String siteNotes;
+
 
     public PowerDisMDF(String sourceAMDF, String sourceBNonMDF, String upsPduRPPbrackets, String siteNotes) {
         this.sourceAMDF = sourceAMDF;

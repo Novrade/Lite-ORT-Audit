@@ -9,18 +9,22 @@ import java.io.Serializable;
 @Entity
 @Table(name="report")
 public class Report implements Serializable {
+
     @Id
     @Column(name = "whid")
     @ColumnDefault("")
     private String whID;
+
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="powermdf")
     @ColumnDefault("")
     private PowerDisMDF powerDistributionToMDFRacks;
+
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="powerdemarc")
     @ColumnDefault("")
     private RackPowerPrioDemarc powerPrioDemarc;
+
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="racksafety")
     @ColumnDefault("")

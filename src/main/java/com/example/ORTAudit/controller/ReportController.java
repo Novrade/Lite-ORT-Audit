@@ -6,22 +6,23 @@ import com.example.ORTAudit.entities.RackPowerPrioDemarc;
 import com.example.ORTAudit.entities.RackSafety;
 import com.example.ORTAudit.entities.Report;
 import com.example.ORTAudit.repository.ReportRepository;
+import com.example.ORTAudit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
+@SessionAttributes("whid")
 public class ReportController {
 
-    private String whid;
+    private final ReportService reportService;
 
-    private ReportRepository repository;
-
-    public ReportController(ReportRepository repository) {
-        this.repository = repository;
+    public ReportController(ReportService reportService) {
+        this.reportService = reportService;
     }
 
     @GetMapping("/")
@@ -31,32 +32,30 @@ public class ReportController {
     }
 
     @PostMapping("/selectWHID")
-    public String formPageOne(@ModelAttribute("report") Report reports, Model model, RedirectAttributes redirectAttributes) {
-        if(reports.getWhID() == null || reports.getWhID().equals("")) {
-            redirectAttributes.addFlashAttribute("whid", "Warehouse ID cannot be empty");
-            return "redirect:";
+    public String formPageOne(@ModelAttribute("report") Report reports,
+                              Model model,
+                              RedirectAttributes redirectAttributes) {
+
+        try {
+            Report report = reportService.findOrCreate(reports.getWhID());
+            model.addAttribute("whid",report.getWhID());
+            return "redirect:/demarc";
+        }catch (NullPointerException ex) {
+            redirectAttributes.addFlashAttribute("whid","Warehouse ID cannot be empty.");
+            return "redirect:/";
         }
-        if(!repository.existsByWhID(reports.getWhID().toUpperCase())) {
-            reports.setPowerDistributionToMDFRacks(new PowerDisMDF("","","",""));
-            reports.setPowerPrioDemarc(new RackPowerPrioDemarc("","","",""));
-            reports.setRackSafety(new RackSafety("","",""));
-            repository.save(reports);
-        }
-        whid = reports.getWhID().toUpperCase();
-        return "redirect:/demarc";
     }
 
     @GetMapping("/demarc")
-    public String formPage(Model model) {
+    public String demarcForm(Model model) {
         model.addAttribute("powerPrioDemarc", new RackPowerPrioDemarc());
         return "formPageOne";
     }
 
     @PostMapping("/powerdemarc")
-    public String formPageTwo(@ModelAttribute("powerPrioDemarc") RackPowerPrioDemarc demarc, Model model) {
-        Report report = repository.findByWhID(whid);
-        report.setPowerPrioDemarc(demarc);
-        repository.save(report);
+    public String formPageTwo(@ModelAttribute("powerPrioDemarc") RackPowerPrioDemarc demarc,
+                              @SessionAttribute("whid") String whid) {
+        reportService.updateDemarc(whid,demarc);
         return "redirect:/mdf";
     }
 
@@ -67,10 +66,8 @@ public class ReportController {
     }
 
     @PostMapping("/powermdf")
-    public String formPageThree(@ModelAttribute("powertomdf") PowerDisMDF mdf, Model model) {
-        Report report = repository.findByWhID(whid);
-        report.setPowerDistributionToMDFRacks(mdf);
-        repository.save(report);
+    public String formPageThree(@ModelAttribute("powertomdf") PowerDisMDF mdf, @SessionAttribute("whid") String whid) {
+        reportService.updateMdf(whid,mdf);
         return "redirect:/rack";
     }
 
@@ -80,29 +77,41 @@ public class ReportController {
         return "formPageThree";
     }
 
+
     @PostMapping("/result")
-    public String result(@ModelAttribute("rack") RackSafety rack, Model model, RedirectAttributes redirectAttributes) {
-        Report report = repository.findByWhID(whid);
-        report.setRackSafety(rack);
-        repository.save(report);
-        model.addAttribute("report",report);
-        if(report.getWhID()==null) {
-            redirectAttributes.addFlashAttribute("whid", "Warehouse ID cannot be empty");
-            return "redirect:";
+    public String result(@ModelAttribute("rack") RackSafety rack,
+                         @SessionAttribute("whid") String whid,
+                         Model model,
+                         RedirectAttributes ra,
+                         SessionStatus status) {
+        reportService.updateRack(whid, rack);
+        Report report = reportService.getByWhidOrThrow(whid);
+
+        model.addAttribute("report", report);
+
+        if (report.getWhID() == null || report.getWhID().isBlank()) {
+            ra.addFlashAttribute("whid", "Warehouse ID cannot be empty");
+            return "redirect:/";
         }
-        if(!report.isCompleted()) {
-            redirectAttributes.addFlashAttribute("error", "One or more items not completed. Please complete all the items to submit report.");
+        if (!report.isCompleted()) {
+            ra.addFlashAttribute("error",
+                    "One or more items not completed. Please complete all the items to submit report.");
             return "redirect:/rack";
+
         }
+
+
+        status.setComplete();
         return "result";
     }
 
+
     @GetMapping("/temp")
-    public String resultTemp(Model model) {
-        Report report = repository.findByWhID(whid);
-        System.out.println(report.getPowerDistributionToMDFRacks());
-        model.addAttribute("report",report);
+    public String resultTemp(@SessionAttribute("whid") String whid, Model model) {
+        Report report = reportService.getByWhidOrThrow(whid);
+        model.addAttribute("report", report);
         return "result";
     }
+
 
 }

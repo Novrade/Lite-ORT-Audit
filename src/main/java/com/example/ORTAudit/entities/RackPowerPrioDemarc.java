@@ -13,16 +13,20 @@ public class RackPowerPrioDemarc implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
     //Source A (UPS) should be the primary/preferred Source.
-    @Column(name="upsprimary", columnDefinition = "i")
+    @Column(name="upsprimary")
     private String UPSPrimary;
-    @Column(name="numbering", columnDefinition = "i")
+
+    @Column(name="numbering")
     //Rack PDU labeled with numbering matching the upstream ATS.
     private String numberingCorrect;
-    @Column(name="retention", columnDefinition = "i")
+
+    @Column(name="retention")
     //Power cable retention is installed for all PDU to device cabling.
     private String rententionInstalled;
-    @Column(name="sitenotes", columnDefinition = "i")
+
+    @Column(name="sitenotes")
     private String siteNotes;
 
     public RackPowerPrioDemarc(String UPSPrimary, String numberingCorrect, String rententionInstalled, String siteNotes) {

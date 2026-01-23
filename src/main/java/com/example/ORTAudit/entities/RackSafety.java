@@ -11,14 +11,17 @@ public class RackSafety implements Serializable {
     //Ensure each rack has grounding connections attached back to MDF grounding bar / building ground.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", columnDefinition = "i")
+    @Column(name="id")
     private int id;
-    @Column(name="grounding", columnDefinition = "i")
+
+    @Column(name="grounding")
     private String areGroundingConnectionAttached;
+
     //Ensure each rack is bolted to floor (if applicable, earthquake zones)
-    @Column(name="bolting", columnDefinition = "i")
+    @Column(name="bolting")
     private String isRackBolted;
-    @Column(name="sitenotes", columnDefinition = "i")
+
+    @Column(name="sitenotes")
     private String siteNotes;
 
     public RackSafety(String areGroundingConnectionAttached, String isRackBolted, String siteNotes) {
