@@ -16,12 +16,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ReportController {
 
-
     private String whid;
 
-    @Autowired
     private ReportRepository repository;
 
+    public ReportController(ReportRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping("/")
     public String home(Model model) {
