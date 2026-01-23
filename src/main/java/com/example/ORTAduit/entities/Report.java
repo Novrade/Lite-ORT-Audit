@@ -1,8 +1,5 @@
-package com.example.ORTAduit.Report;
+package com.example.ORTAduit.entities;
 
-import com.example.ORTAduit.Items.PowerDisMDF;
-import com.example.ORTAduit.Items.RackPowerPrioDemarc;
-import com.example.ORTAduit.Items.RackSafety;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 

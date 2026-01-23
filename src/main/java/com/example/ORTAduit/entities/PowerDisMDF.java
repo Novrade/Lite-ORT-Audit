@@ -1,7 +1,6 @@
-package com.example.ORTAduit.Items;
+package com.example.ORTAduit.entities;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.io.Serializable;
 

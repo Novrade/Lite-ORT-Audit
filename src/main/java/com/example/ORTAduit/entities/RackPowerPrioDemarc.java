@@ -1,4 +1,4 @@
-package com.example.ORTAduit.Items;
+package com.example.ORTAduit.entities;
 
 import jakarta.persistence.*;
 

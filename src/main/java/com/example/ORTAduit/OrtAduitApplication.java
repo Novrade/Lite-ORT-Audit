@@ -1,10 +1,9 @@
 package com.example.ORTAduit;
 
-import com.example.ORTAduit.Report.Report;
+import com.example.ORTAduit.entities.Report;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;

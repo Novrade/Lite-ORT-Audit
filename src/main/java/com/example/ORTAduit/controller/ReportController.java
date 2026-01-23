@@ -1,10 +1,10 @@
-package com.example.ORTAduit;
+package com.example.ORTAduit.controller;
 
 
-import com.example.ORTAduit.Items.PowerDisMDF;
-import com.example.ORTAduit.Items.RackPowerPrioDemarc;
-import com.example.ORTAduit.Items.RackSafety;
-import com.example.ORTAduit.Report.Report;
+import com.example.ORTAduit.entities.PowerDisMDF;
+import com.example.ORTAduit.entities.RackPowerPrioDemarc;
+import com.example.ORTAduit.entities.RackSafety;
+import com.example.ORTAduit.entities.Report;
 import com.example.ORTAduit.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
