@@ -24,15 +24,15 @@ public class RackPowerPrioDemarc implements Serializable {
 
     @Column(name="retention")
     //Power cable retention is installed for all PDU to device cabling.
-    private String rententionInstalled;
+    private String retentionInstalled;
 
     @Column(name="sitenotes")
     private String siteNotes;
 
-    public RackPowerPrioDemarc(String UPSPrimary, String numberingCorrect, String rententionInstalled, String siteNotes) {
+    public RackPowerPrioDemarc(String UPSPrimary, String numberingCorrect, String retentionInstalled, String siteNotes) {
         this.UPSPrimary = UPSPrimary;
         this.numberingCorrect = numberingCorrect;
-        this.rententionInstalled = rententionInstalled;
+        this.retentionInstalled = retentionInstalled;
         this.siteNotes = siteNotes;
     }
 
@@ -55,12 +55,12 @@ public class RackPowerPrioDemarc implements Serializable {
         this.numberingCorrect = numberingCorrect;
     }
 
-    public String getRententionInstalled() {
-        return rententionInstalled;
+    public String getRetentionInstalled() {
+        return retentionInstalled;
     }
 
-    public void setRententionInstalled(String rententionInstalled) {
-        this.rententionInstalled = rententionInstalled;
+    public void setRetentionInstalled(String retentionInstalled) {
+        this.retentionInstalled = retentionInstalled;
     }
 
 
@@ -84,7 +84,7 @@ public class RackPowerPrioDemarc implements Serializable {
     public String toString() {
         return "Source A (UPS) should be the primary/preferred Source:\t " + getUPSPrimary() + "\n\n" +
                 "Rack PDU labeled with numbering matching the upstream ATS:\t " + getNumberingCorrect() + "\n\n" +
-                "Power cable retention is installed for all PDU to device cabling:\t " + getRententionInstalled() + "\n\n" +
+                "Power cable retention is installed for all PDU to device cabling:\t " + getRetentionInstalled() + "\n\n" +
                 "Site notes:\t" + getSiteNotes();
     }
 }

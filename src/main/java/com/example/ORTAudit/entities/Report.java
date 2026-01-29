@@ -67,7 +67,7 @@ public class Report implements Serializable {
     }
 
     public boolean isCompleted() {
-        if(getPowerPrioDemarc().getNumberingCorrect() == null || getPowerPrioDemarc().getRententionInstalled() == null || getPowerPrioDemarc().getUPSPrimary() == null) {
+        if(getPowerPrioDemarc().getNumberingCorrect() == null || getPowerPrioDemarc().getRetentionInstalled() == null || getPowerPrioDemarc().getUPSPrimary() == null) {
             return false;
         }else if(getPowerDistributionToMDFRacks().getUpsPduRPPbrackets()== null || getPowerDistributionToMDFRacks().getSourceAMDF()==null|| getPowerDistributionToMDFRacks().getSourceBNonMDF()==null){
             return false;
