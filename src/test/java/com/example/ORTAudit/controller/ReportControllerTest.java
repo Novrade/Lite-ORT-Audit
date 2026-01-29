@@ -32,18 +32,32 @@ class ReportControllerTest {
     MockMvc mockMvc;
 
     @Test
-    void createReport() throws Exception {
+    void createReportSuccessful() throws Exception {
         Report report = new Report();
         report.setWhID("BB-02");
 
         when(reportService.findOrCreate("BB-02")).thenReturn(report);
 
-        ResultActions result = mockMvc.perform(post("/selectWHID")
+        mockMvc.perform(post("/selectWHID")
                 .param("whID",report.getWhID()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location","/demarc"));
 
         verify(reportService).findOrCreate("BB-02");
     }
+
+    @Test
+    void createReportNoWhIdRedirectHome() throws Exception {
+        Report report = new Report();
+
+        when(reportService.findOrCreate("")).thenReturn(report);
+
+        mockMvc.perform(post("/selectWHID")
+                .param("whID",report.getWhID()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location","/"));
+
+    }
+
 
 }
