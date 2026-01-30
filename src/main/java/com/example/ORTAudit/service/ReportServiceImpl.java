@@ -46,11 +46,11 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void updateDemarc(String whid, RackPowerPrioDemarc demarc) {
+    public Report updateDemarc(String whid, RackPowerPrioDemarc demarc) {
         Report report = getByWhidOrThrow(whid);
         report.setPowerPrioDemarc(demarc);
         repository.save(report);
-
+        return report;
     }
 
     @Override
