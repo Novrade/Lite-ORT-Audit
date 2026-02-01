@@ -8,8 +8,10 @@ import com.example.ORTAudit.entities.Report;
 import com.example.ORTAudit.repository.ReportRepository;
 import com.example.ORTAudit.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,7 +34,7 @@ public class ReportController {
     }
 
     @PostMapping("/selectWHID")
-    public String formPageOne(@ModelAttribute("report") Report reports,
+    public String formPageOne(@Validated @ModelAttribute("report") Report reports,
                               Model model,
                               RedirectAttributes redirectAttributes) {
 

@@ -84,6 +84,15 @@ class ReportControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(header().string("Location","/mdf"));
 
+    }
+
+    @Test
+    void mdfFormView() throws Exception {
+
+        mockMvc.perform(get("/mdf"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("formPageTwo"))
+                .andExpect(model().attributeExists("powertomdf"));
 
     }
 
