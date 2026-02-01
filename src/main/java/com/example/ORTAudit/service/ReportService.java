@@ -10,6 +10,6 @@ public interface ReportService {
     public Report getByWhidOrThrow(String whid);
     public Report findOrCreate(String whid);
     public Report updateDemarc(String whid, RackPowerPrioDemarc demarc);
-    public void updateMdf(String whid, PowerDisMDF mdf);
-    public void updateRack(String whid, RackSafety rack);
+    public Report updateMdf(String whid, PowerDisMDF mdf);
+    public Report updateRack(String whid, RackSafety rack);
 }

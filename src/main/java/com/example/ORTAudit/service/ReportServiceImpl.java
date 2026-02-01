@@ -54,19 +54,19 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void updateMdf(String whid, PowerDisMDF mdf) {
+    public Report updateMdf(String whid, PowerDisMDF mdf) {
         Report report = getByWhidOrThrow(whid);
         report.setPowerDistributionToMDFRacks(mdf);
         repository.save(report);
-
+        return report;
     }
 
     @Override
-    public void updateRack(String whid, RackSafety rack) {
+    public Report updateRack(String whid, RackSafety rack) {
         Report report = getByWhidOrThrow(whid);
         report.setRackSafety(rack);
         repository.save(report);
-
+        return report;
     }
 
     private String normalize(String whid) {

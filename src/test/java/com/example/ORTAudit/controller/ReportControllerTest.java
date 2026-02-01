@@ -1,5 +1,6 @@
 package com.example.ORTAudit.controller;
 
+import com.example.ORTAudit.entities.PowerDisMDF;
 import com.example.ORTAudit.entities.RackPowerPrioDemarc;
 import com.example.ORTAudit.entities.Report;
 import com.example.ORTAudit.service.ReportService;
@@ -93,6 +94,24 @@ class ReportControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("formPageTwo"))
                 .andExpect(model().attributeExists("powertomdf"));
+
+    }
+
+    @Test
+    void createMdfFormSuccessful() throws Exception {
+        Report report = new Report();
+        report.setWhID("BB-02");
+        PowerDisMDF powerDisMDF = new PowerDisMDF();
+        powerDisMDF.setId(1);
+        powerDisMDF.setSiteNotes("Note");
+
+        when(reportService.updateMdf(report.getWhID(),powerDisMDF)).thenReturn(report);
+
+        mockMvc.perform(post("/powermdf")
+                .param("sideNotes",powerDisMDF.getSiteNotes())
+                .sessionAttr("whid",report.getWhID()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location","/rack"));
 
     }
 
