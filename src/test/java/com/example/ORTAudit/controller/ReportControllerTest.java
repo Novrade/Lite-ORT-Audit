@@ -115,4 +115,32 @@ class ReportControllerTest {
 
     }
 
+    @Test
+    void rackFormView() throws Exception {
+
+        mockMvc.perform(get("/rack"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("formPageThree"))
+                .andExpect(model().attributeExists("rack"));
+
+    }
+
+    @Test
+    void completedFormSomeNotCompleted() throws Exception {
+        Report report = new Report();
+        report.setWhID("BB-02");
+        PowerDisMDF powerDisMDF = new PowerDisMDF();
+        powerDisMDF.setId(1);
+        powerDisMDF.setSiteNotes("Note");
+
+        when(reportService.updateMdf(report.getWhID(),powerDisMDF)).thenReturn(report);
+
+        mockMvc.perform(post("/powermdf")
+                        .param("sideNotes",powerDisMDF.getSiteNotes())
+                        .sessionAttr("whid",report.getWhID()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(header().string("Location","/rack"));
+
+    }
+
 }
